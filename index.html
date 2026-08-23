@@ -131,8 +131,13 @@
   .hold-inner { height: 42px; }
 
   .center-col { display: flex; flex-direction: column; align-items: center; gap: 8px; flex-shrink: 0; }
-  .board-panel { position: relative; background: var(--panel); border-radius: 10px; padding: 8px; box-shadow: 0 0 0 1px var(--grid-line-soft); }
-  #boardCanvas { display: block; border-radius: 4px; background: var(--panel2); }
+  .board-panel {
+    position: relative; border-radius: 10px; padding: 10px;
+    background: #1c2620;
+    box-shadow: 0 0 0 1px #2c3c33, inset 0 0 0 1px rgba(0,0,0,0.2);
+  }
+  #boardCanvas { display: block; border-radius: 4px; background: var(--panel2); box-shadow: inset 0 0 0 2px #060a08; }
+  #boardCanvasM { display: block; border-radius: 4px; background: var(--panel2); box-shadow: inset 0 0 0 2px #060a08; }
 
   .right-col { width: 150px; display: flex; flex-direction: column; gap: 10px; flex-shrink: 0; }
   .next-strip { display: flex; flex-direction: column; gap: 5px; }
@@ -149,23 +154,28 @@
   }
 
   .banner-center {
-    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-    z-index: 6; text-align: center; pointer-events: none; opacity: 0; transition: opacity 0.1s;
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.94);
+    z-index: 6; text-align: center; pointer-events: none; opacity: 0;
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+    background: rgba(10,15,13,0.82);
+    border: 1px solid var(--grid-line);
+    border-radius: 10px;
+    padding: 10px 22px;
+    box-shadow: 0 8px 28px -10px rgba(0,0,0,0.6);
+    backdrop-filter: blur(2px);
   }
-  .banner-center.show { opacity: 1; }
+  .banner-center.show {
+    opacity: 1; transform: translate(-50%, -50%) scale(1);
+    transition: opacity 0.05s, transform 0.05s;
+  }
   .banner-center .big {
-    font-family: var(--font-display); font-size: 30px; font-weight: 700; letter-spacing: 0.05em;
-    color: var(--accent); text-shadow: 0 0 22px var(--accent-glow);
+    font-family: var(--font-display); font-size: 26px; font-weight: 700; letter-spacing: 0.05em;
+    color: var(--accent); text-shadow: 0 0 18px var(--accent-glow);
   }
   .banner-center .small {
-    margin-top: 4px; font-family: var(--font-display); font-size: 10.5px; color: var(--ink-dim); letter-spacing: 0.06em;
+    margin-top: 3px; font-family: var(--font-display); font-size: 10px; color: var(--ink-dim); letter-spacing: 0.06em;
   }
-  .banner-center.miss .big { color: var(--warn); text-shadow: 0 0 22px rgba(255,138,101,0.35); }
-  .banner-dim-overlay {
-    position: absolute; inset: 8px; background: rgba(5,8,7,0.4); border-radius: 4px; z-index: 4;
-    opacity: 0; transition: opacity 0.1s; pointer-events: none;
-  }
-  .banner-dim-overlay.show { opacity: 1; }
+  .banner-center.miss .big { color: var(--warn); text-shadow: 0 0 18px rgba(255,138,101,0.35); }
 
   /* --- Mobile layout --- */
   .phone-body { display: none; flex-direction: column; height: 100%; width: 100%; }
@@ -312,7 +322,6 @@
 
         <div class="center-col">
           <div class="board-panel">
-            <div class="banner-dim-overlay" id="bannerDimPC"></div>
             <div class="banner-center" id="bannerCenterPC"><div class="big" id="bannerBigPC">PERFECT</div><div class="small" id="bannerSmallPC"></div></div>
             <canvas id="boardCanvas"></canvas>
           </div>
@@ -354,7 +363,6 @@
 
           <div class="phone-board-col">
             <div class="board-panel" style="padding:5px;">
-              <div class="banner-dim-overlay" id="bannerDimM"></div>
               <div class="banner-center" id="bannerCenterM"><div class="big" id="bannerBigM" style="font-size:20px;">PERFECT</div><div class="small" id="bannerSmallM" style="font-size:9px;"></div></div>
               <canvas id="boardCanvasM"></canvas>
             </div>
@@ -858,16 +866,16 @@
     updateStatsUI();
 
     piecesUsed += 1;
+    judgingLock = false;
 
-    setTimeout(() => {
-      hideBanner();
-      judgingLock = false;
-      if (piecesUsed >= TOTAL_PIECES) {
-        endSession();
-      } else {
-        spawnNextFromQueue();
-      }
-    }, 550);
+    // No waiting: immediately advance to the next piece (or end the session).
+    // The judgement banner keeps showing independently and fades out on its own,
+    // without blocking or delaying the next piece's spawn/input.
+    if (piecesUsed >= TOTAL_PIECES) {
+      endSession();
+    } else {
+      spawnNextFromQueue();
+    }
   }
 
   function spawnNextFromQueue() {
@@ -886,20 +894,30 @@
   // =====================================================================
   // Banner UI
   // =====================================================================
+  const BANNER_FADE_MS = 500;
+  let bannerFadeTimers = { PC: null, M: null };
+
   function showBanner(isPerfect, big, small) {
-    const els = isMobile
-      ? { dim: document.getElementById('bannerDimM'), center: document.getElementById('bannerCenterM'), big: document.getElementById('bannerBigM'), small: document.getElementById('bannerSmallM') }
-      : { dim: document.getElementById('bannerDimPC'), center: document.getElementById('bannerCenterPC'), big: document.getElementById('bannerBigPC'), small: document.getElementById('bannerSmallPC') };
+    const suffix = isMobile ? 'M' : 'PC';
+    const els = {
+      center: document.getElementById(`bannerCenter${suffix}`),
+      big: document.getElementById(`bannerBig${suffix}`),
+      small: document.getElementById(`bannerSmall${suffix}`)
+    };
     els.big.textContent = big;
     els.small.textContent = small;
     els.center.classList.toggle('miss', !isPerfect);
-    els.dim.classList.add('show');
+
+    // restart fade animation even if a previous banner is still fading
+    clearTimeout(bannerFadeTimers[suffix]);
+    els.center.classList.remove('show');
+    // force reflow so the class removal/addition re-triggers the CSS transition
+    void els.center.offsetWidth;
     els.center.classList.add('show');
-  }
-  function hideBanner() {
-    ['bannerDimPC','bannerCenterPC','bannerDimM','bannerCenterM'].forEach(id => {
-      document.getElementById(id).classList.remove('show');
-    });
+
+    bannerFadeTimers[suffix] = setTimeout(() => {
+      els.center.classList.remove('show');
+    }, BANNER_FADE_MS);
   }
 
   // =====================================================================
@@ -1048,9 +1066,8 @@
   }
   function iconHardDrop() {
     return `<svg width="16" height="16" viewBox="0 0 24 24">
-      <path d="M12 21 L12 9" fill="none" stroke="var(--accent)" stroke-width="2.6" stroke-linecap="round"/>
-      <path d="M7 12 L12 7 L17 12" fill="none" stroke="var(--accent)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
-      <path d="M6 20.5 L18 20.5" fill="none" stroke="var(--accent)" stroke-width="2.6" stroke-linecap="round"/>
+      <path d="M12 18 L12 6" fill="none" stroke="var(--accent)" stroke-width="2.6" stroke-linecap="round"/>
+      <path d="M7 11 L12 6 L17 11" fill="none" stroke="var(--accent)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>`;
   }
 
@@ -1207,20 +1224,39 @@
 
   const keyState = {};
   let leftHeld = false, rightHeld = false;
-  let leftTimer = null, rightTimer = null;
+  let leftDasTimer = null, rightDasTimer = null;
+  let leftArrTimer = null, rightArrTimer = null;
+
+  const DAS_MS = 167; // delay before auto-repeat kicks in (standard-ish DAS)
+  const ARR_MS = 33;  // interval between repeated moves once auto-repeat is active
 
   function startHoldMove(dir) {
     const isLeft = dir < 0;
     if ((isLeft && leftHeld) || (!isLeft && rightHeld)) return;
-    tryMove(dir, true);
     if (isLeft) leftHeld = true; else rightHeld = true;
-    const timer = setInterval(() => tryMove(dir, false), 110);
-    if (isLeft) leftTimer = timer; else rightTimer = timer;
+
+    // First press moves immediately by 1 cell and counts as the single "move" for this hold.
+    tryMove(dir, true);
+
+    // After DAS_MS, start auto-repeating the move every ARR_MS (does not add extra move-count,
+    // since a held key still counts as just 1 move per the drill's move-counting spec).
+    const dasTimer = setTimeout(() => {
+      const arrTimer = setInterval(() => tryMove(dir, false), ARR_MS);
+      if (isLeft) leftArrTimer = arrTimer; else rightArrTimer = arrTimer;
+    }, DAS_MS);
+    if (isLeft) leftDasTimer = dasTimer; else rightDasTimer = dasTimer;
   }
   function stopHoldMove(dir) {
     const isLeft = dir < 0;
-    if (isLeft) { clearInterval(leftTimer); leftTimer = null; leftHeld = false; }
-    else { clearInterval(rightTimer); rightTimer = null; rightHeld = false; }
+    if (isLeft) {
+      clearTimeout(leftDasTimer); leftDasTimer = null;
+      clearInterval(leftArrTimer); leftArrTimer = null;
+      leftHeld = false;
+    } else {
+      clearTimeout(rightDasTimer); rightDasTimer = null;
+      clearInterval(rightArrTimer); rightArrTimer = null;
+      rightHeld = false;
+    }
   }
 
   document.addEventListener('keydown', (e) => {
