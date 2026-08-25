@@ -78,10 +78,23 @@
   .guide-hint {
     font-size: 10.5px; color: var(--ink-faint); margin-top: 8px; max-width: 300px; line-height: 1.6;
   }
+  .guide-icon-legend {
+    display: flex; align-items: center; justify-content: center; flex-wrap: wrap;
+    gap: 10px 14px; margin-top: 14px; max-width: 320px;
+  }
+  .legend-item {
+    display: flex; align-items: center; gap: 4px; font-size: 9.5px; color: var(--ink-dim);
+    font-family: var(--font-display); white-space: nowrap;
+  }
+  .legend-icon { display: inline-flex; align-items: center; }
+  .legend-icon svg { display: block; width: 15px; height: 15px; }
+  .legend-break { flex-basis: 100%; height: 0; }
   .title-footer-note {
     position: absolute; bottom: 18px; font-size: 10px; color: var(--ink-faint); letter-spacing: 0.03em;
     max-width: 90%;
   }
+  .title-version { position: absolute; bottom: 10px; left: 14px; font-size: 9px; color: var(--ink-faint); letter-spacing: 0.03em; font-family: var(--font-display); }
+  .title-credit { position: absolute; bottom: 10px; right: 14px; font-size: 9px; color: var(--ink-faint); letter-spacing: 0.03em; font-family: var(--font-display); }
 
   /* ============ GAME SCREEN ============ */
   #gameScreen { display: flex; flex-direction: column; height: 100vh; height: 100svh; overflow: hidden; touch-action: none; }
@@ -106,9 +119,9 @@
     font-family: var(--font-display); font-size: 10.5px; white-space: nowrap;
   }
   .step-chip {
-    display: inline-flex; align-items: center; gap: 4px;
+    display: inline-flex; align-items: center; gap: 5px;
     background: var(--panel); border: 1px solid var(--grid-line); color: var(--ink);
-    border-radius: 6px; padding: 3px 10px;
+    border-radius: 7px; padding: 4px 11px;
   }
   .step-chip svg { display: block; }
 
@@ -219,7 +232,8 @@
     background: rgba(10,15,13,0.82);
     border: 1px solid var(--grid-line);
     border-radius: 10px;
-    padding: 10px 22px;
+    padding: 10px 14px;
+    width: 220px;
     box-shadow: 0 8px 28px -10px rgba(0,0,0,0.6);
     backdrop-filter: blur(2px);
   }
@@ -229,13 +243,14 @@
   }
   .banner-center .big {
     font-family: var(--font-display); font-size: 26px; font-weight: 700; letter-spacing: 0.05em;
-    color: var(--accent); text-shadow: 0 0 18px var(--accent-glow);
+    color: var(--accent); text-shadow: 0 0 18px var(--accent-glow); white-space: nowrap;
   }
   .banner-center .small {
     margin-top: 5px; font-family: var(--font-display); font-size: 15px; font-weight: 700;
-    color: var(--ink); letter-spacing: 0.04em;
+    color: var(--ink); letter-spacing: 0.04em; white-space: nowrap;
   }
   .banner-center.miss .big { color: var(--warn); text-shadow: 0 0 18px rgba(255,138,101,0.35); }
+  #bannerCenterM { width: 175px; padding: 8px 10px; }
 
   /* --- Mobile layout --- */
   .phone-body { display: none; flex-direction: column; height: 100%; width: 100%; }
@@ -257,35 +272,37 @@
   .phone-right-col .minmoves-sub { font-size: 7px; }
 
   .phone-control-area {
-    height: 22svh; min-height: 150px; max-height: 210px;
-    display: flex; flex-direction: column; border-top: 1px solid var(--grid-line); flex-shrink: 0;
+    height: 24svh; min-height: 165px; max-height: 220px;
+    display: flex; flex-direction: column; gap: 8px; padding: 6px;
+    border-top: 1px solid var(--grid-line); flex-shrink: 0;
   }
-  .ctrl-top { height: 22%; display: flex; }
-  .ctrl-bottom { height: 78%; display: flex; }
+  .ctrl-top { height: 26%; display: flex; gap: 8px; }
+  .ctrl-bottom { height: 74%; display: flex; gap: 8px; }
   .ctrl-btn {
     display: flex; align-items: center; justify-content: center;
-    background: var(--panel); border: 1px solid var(--grid-line); color: var(--ink); flex: 1;
+    background: var(--panel); border: 1px solid var(--grid-line); border-radius: 10px; color: var(--ink); flex: 1;
     -webkit-user-select: none; user-select: none; touch-action: manipulation;
   }
   .ctrl-btn:active { background: #16201a; }
   .ctrl-btn.drop { color: var(--accent); font-family: var(--font-display); font-size: 12px; letter-spacing: 0.04em; text-align: center; line-height: 1.3; }
-  .ctrl-btn.hold { color: var(--warn); font-family: var(--font-display); font-size: 12px; letter-spacing: 0.04em; }
+  .ctrl-btn.hold { color: var(--warn); font-family: var(--font-display); font-size: 13px; letter-spacing: 0.04em; }
   .ctrl-btn.move { font-size: 24px; }
-  .ctrl-bl { flex: 1; display: flex; }
+  .ctrl-icon svg { display: block; width: 30px; height: 30px; }
+  .ctrl-btn.drop .ctrl-icon svg { width: 24px; height: 24px; }
+  .ctrl-bl { flex: 1; display: flex; gap: 8px; }
   .ctrl-bl .ctrl-btn { flex: 1; }
   .ctrl-br {
-    flex: 1; position: relative; background: var(--panel); border: 1px solid var(--grid-line); overflow: hidden;
+    flex: 1; position: relative; background: var(--panel); border: 1px solid var(--grid-line); border-radius: 10px; overflow: hidden;
     -webkit-user-select: none; user-select: none; touch-action: manipulation;
   }
   .diag-svg { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
   .diag-zone {
     position: absolute; width: 100%; height: 100%; top: 0; left: 0;
   }
-  .diag-label {
-    position: absolute; font-family: var(--font-display); color: var(--accent); pointer-events: none;
-  }
-  .diag-label.rotL { bottom: 10px; left: 10px; }
-  .diag-label.rotR { top: 10px; right: 10px; }
+  .diag-label { position: absolute; font-family: var(--font-display); color: var(--accent); pointer-events: none; }
+  .diag-label .ctrl-icon svg { width: 24px; height: 24px; }
+  .diag-label.rotL { left: 27%; top: 73%; transform: translate(-50%, -50%); }
+  .diag-label.rotR { left: 73%; top: 27%; transform: translate(-50%, -50%); }
 
   /* ============ RESULT SCREEN ============ */
   #resultScreen {
@@ -302,18 +319,25 @@
   .result-eyebrow .dot-accent { color: var(--accent); }
   .clear-time {
     font-family: var(--font-display); font-weight: 700; line-height: 1;
-    font-size: 50px; color: var(--accent); text-shadow: 0 0 24px var(--accent-glow); margin-bottom: 6px;
+    font-size: 50px; color: var(--accent); text-shadow: 0 0 24px var(--accent-glow); margin-bottom: 26px;
   }
   .clear-time .colon, .clear-time .ms { color: var(--ink-dim); text-shadow: none; }
   .clear-time .ms { font-size: 0.55em; }
-  .clear-sub { font-size: 10.5px; color: var(--ink-faint); letter-spacing: 0.08em; margin-bottom: 26px; font-family: var(--font-display); }
-  .stat-strip { display: flex; gap: 24px; margin-bottom: 30px; }
+  .clear-sub { font-size: 10.5px; color: var(--ink-faint); letter-spacing: 0.08em; margin-bottom: 6px; font-family: var(--font-display); }
+  .stat-strip { display: flex; gap: 24px; margin-bottom: 20px; }
   .stat-block { text-align: center; }
   .stat-block .label { font-family: var(--font-display); font-size: 9px; color: var(--ink-faint); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 4px; }
   .stat-block .value { font-family: var(--font-display); font-size: 24px; font-weight: 700; color: var(--ink); }
   .stat-block .value.accent { color: var(--accent); }
   .stat-block .value.warn { color: var(--warn); }
   .stat-divider { width: 1px; height: 32px; background: var(--grid-line); align-self: center; }
+  .result-comment {
+    font-size: 12px; color: var(--ink-dim); line-height: 1.6; max-width: 300px;
+    margin-bottom: 22px;
+  }
+  .result-next-hint {
+    font-size: 11px; color: var(--accent); margin-top: 14px; letter-spacing: 0.02em;
+  }
   .btn-row { display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; justify-content: center; }
   .btn {
     font-family: var(--font-display); font-size: 13px; letter-spacing: 0.05em; font-weight: 700;
@@ -327,20 +351,7 @@
     background: var(--panel); border: 1px solid var(--grid-line); border-radius: 20px;
     padding: 9px 18px;
   }
-  .share-btn-el[disabled] {
-    pointer-events: none;
-    opacity: 0.5;
-  }
-  .share-btn-el-content {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 2px;
-  }
-  .share-btn-el-subtitle {
-    font-size: 9px;
-    opacity: 0.6;
-  }
+  .share-btn-el[disabled] { pointer-events: none; opacity: 0.5; }
 
   /* ============ INTRO / GUIDE OVERLAY ============ */
   .intro-btn {
@@ -415,13 +426,25 @@
     </div>
     <div class="title-logo">ミノ<span class="accent">最適配置</span></div>
     <div class="title-sub">最短手数配置トレーニング</div>
-    <button class="start-btn" id="startBtn">START</button>
+    <button class="start-btn" id="startBtn">スタート</button>
     <label class="guide-check">
       <input type="checkbox" id="guideCheckbox" checked>
       <span>操作手順ガイドを表示する</span>
     </label>
     <div class="guide-hint">ONにすると各お題の最短手数と操作手順が表示されます<br>OFFでも最短手数判定は行われます</div>
+    <div class="guide-icon-legend">
+      <span class="legend-item"><span class="legend-icon" id="legendMoveL"></span>左移動</span>
+      <span class="legend-item"><span class="legend-icon" id="legendMoveR"></span>右移動</span>
+      <span class="legend-item"><span class="legend-icon" id="legendMoveLongL"></span>左長押し</span>
+      <span class="legend-item"><span class="legend-icon" id="legendMoveLongR"></span>右長押し</span>
+      <span class="legend-break"></span>
+      <span class="legend-item"><span class="legend-icon" id="legendRotL"></span>左回転</span>
+      <span class="legend-item"><span class="legend-icon" id="legendRotR"></span>右回転</span>
+      <span class="legend-item"><span class="legend-icon" id="legendDrop"></span>落下(ハードドロップ)</span>
+    </div>
     <div class="title-footer-note">← → / A D 移動　↑ W ハードドロップ　Z X 回転　Space ホールド</div>
+    <div class="title-version">2026 TRIBIRDS</div>
+    <div class="title-credit">V1.0.0</div>
   </div>
 
   <!-- ============ INTRO / GUIDE OVERLAY ============ -->
@@ -555,7 +578,7 @@
                 <div class="mini-cell"></div><div class="mini-cell"></div><div class="mini-cell"></div><div class="mini-cell"></div>
               </div>
             </div>
-            <div class="mini-caption">未回転</div>
+            <div class="mini-caption">左に押し付け</div>
           </div>
           <div class="arrow">→</div>
           <div class="board-col">
@@ -567,7 +590,7 @@
                 <div class="mini-cell"></div><div class="mini-cell"></div><div class="mini-cell" style="background:var(--S)"></div><div class="mini-cell"></div>
               </div>
             </div>
-            <div class="mini-caption on">右回転</div>
+            <div class="mini-caption on">右回転で1マス離れる</div>
           </div>
         </div>
       </div>
@@ -601,7 +624,7 @@
           <div class="pause-btn-list">
             <button class="btn primary" id="pauseResumeBtn">続ける</button>
             <button class="btn secondary" id="pauseRetryBtn">リトライ</button>
-            <button class="btn secondary" id="pauseTitleBtn">タイトルに戻る</button>
+            <button class="btn secondary" id="pauseTitleBtn">タイトルへ</button>
           </div>
         </div>
       </div>
@@ -676,20 +699,20 @@
 
         <div class="phone-control-area">
           <div class="ctrl-top">
-            <div class="ctrl-btn drop" id="mDrop">HARD<br>DROP</div>
+            <div class="ctrl-btn drop" id="mDrop"><span class="ctrl-icon" id="mDropIcon"></span></div>
             <div class="ctrl-btn hold" id="mHold">HOLD</div>
           </div>
           <div class="ctrl-bottom">
             <div class="ctrl-bl">
-              <div class="ctrl-btn move" id="mLeft">◀</div>
-              <div class="ctrl-btn move" id="mRight">▶</div>
+              <div class="ctrl-btn move" id="mLeft"><span class="ctrl-icon" id="mLeftIcon"></span></div>
+              <div class="ctrl-btn move" id="mRight"><span class="ctrl-icon" id="mRightIcon"></span></div>
             </div>
             <div class="ctrl-br" id="mRotZone">
               <svg class="diag-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
                 <line x1="0" y1="0" x2="100" y2="100" stroke="#1d2a24" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
               </svg>
-              <div class="diag-label rotL" id="mRotL" style="font-size:20px; font-weight:700;">↺</div>
-              <div class="diag-label rotR" id="mRotR" style="font-size:20px; font-weight:700;">↻</div>
+              <div class="diag-label rotL" id="mRotL"><span class="ctrl-icon" id="mRotLIcon"></span></div>
+              <div class="diag-label rotR" id="mRotR"><span class="ctrl-icon" id="mRotRIcon"></span></div>
             </div>
           </div>
         </div>
@@ -699,25 +722,24 @@
 
   <!-- ============ RESULT SCREEN ============ -->
   <div id="resultScreen" class="hidden">
-    <div class="result-eyebrow">SESSION CLEAR</div>
-    <div class="clear-time" id="resultTime">00<span class="colon">:</span>00<span class="ms">.00</span></div>
+    <div class="result-eyebrow">RESULT</div>
     <div class="clear-sub">CLEAR TIME</div>
+    <div class="clear-time" id="resultTime">00<span class="colon">:</span>00<span class="ms">.00</span></div>
     <div class="stat-strip">
       <div class="stat-block"><div class="label">Success</div><div class="value accent" id="resultSuccess">0</div></div>
       <div class="stat-divider"></div>
       <div class="stat-block"><div class="label">Miss</div><div class="value warn" id="resultMiss">0</div></div>
     </div>
+    <div class="result-comment" id="resultComment"></div>
     <div class="btn-row">
-      <button class="btn primary" id="retryBtn">もう一度</button>
-      <button class="btn secondary" id="topBtn">トップへ戻る</button>
+      <button class="btn primary" id="retryBtn">リトライ</button>
+      <button class="btn secondary" id="topBtn">タイトルへ</button>
     </div>
     <button class="share-btn-el" id="shareBtn" disabled>
       <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 2H22l-7.6 8.7L23.3 22h-7l-5.5-7.2L4.5 22H1.4l8.1-9.3L1 2h7.2l5 6.6L18.9 2Zm-1.2 18h1.7L7.4 4H5.6l12.1 16Z"/></svg>
-      <div class="share-btn-el-content">
-        <div>結果をXでシェア</div>
-        <div class="share-btn-el-subtitle">実装予定</div>
-      </div>
+      <div id="shareBtnLabel">MISS0でシェア</div>
     </button>
+    <div class="result-next-hint hidden" id="resultNextHint">操作手順ガイドOFFでも遊んでみよう</div>
   </div>
 
 </div>
@@ -1342,34 +1364,34 @@
   // Hint bar (step icons)
   // =====================================================================
   function iconMoveSingle() {
-    return `<svg width="16" height="16" viewBox="0 0 24 24"><path d="M9 6 L16 12 L9 18" fill="none" stroke="var(--accent)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+    return `<svg width="20" height="20" viewBox="0 0 24 24"><path d="M9 6 L16 12 L9 18" fill="none" stroke="var(--accent)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
   }
   function iconMoveSingleLeft() {
-    return `<svg width="16" height="16" viewBox="0 0 24 24" style="transform:scaleX(-1)"><path d="M9 6 L16 12 L9 18" fill="none" stroke="var(--accent)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+    return `<svg width="20" height="20" viewBox="0 0 24 24" style="transform:scaleX(-1)"><path d="M9 6 L16 12 L9 18" fill="none" stroke="var(--accent)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
   }
   // Long-press move: rendered as a SINGLE icon with a double-chevron (">>" / "<<")
   // so the icon count on screen always equals the actual 1-action move count.
   function iconMoveLong() {
-    return `<svg width="18" height="16" viewBox="0 0 28 24">
+    return `<svg width="22" height="20" viewBox="0 0 28 24">
       <path d="M4 6 L11 12 L4 18" fill="none" stroke="var(--accent)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
       <path d="M14 6 L21 12 L14 18" fill="none" stroke="var(--accent)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>`;
   }
   function iconMoveLongLeft() {
-    return `<svg width="18" height="16" viewBox="0 0 28 24" style="transform:scaleX(-1)">
+    return `<svg width="22" height="20" viewBox="0 0 28 24" style="transform:scaleX(-1)">
       <path d="M4 6 L11 12 L4 18" fill="none" stroke="var(--accent)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
       <path d="M14 6 L21 12 L14 18" fill="none" stroke="var(--accent)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>`;
   }
   function iconRotate(isLeft) {
     const flip = isLeft ? 'style="transform:scaleX(-1)"' : '';
-    return `<svg width="16" height="16" viewBox="0 0 24 24" ${flip}>
+    return `<svg width="20" height="20" viewBox="0 0 24 24" ${flip}>
       <path d="M17.66 6.34 A8 8 0 1 0 17.66 17.66" fill="none" stroke="var(--accent)" stroke-width="2.6" stroke-linecap="round"/>
       <path d="M13.8 5.1 L17.9 6.1 L16.9 10.2" fill="none" stroke="var(--accent)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" transform="rotate(55 17.66 6.34)"/>
     </svg>`;
   }
   function iconHardDrop() {
-    return `<svg width="16" height="16" viewBox="0 0 24 24">
+    return `<svg width="20" height="20" viewBox="0 0 24 24">
       <path d="M12 18 L12 6" fill="none" stroke="var(--accent)" stroke-width="2.6" stroke-linecap="round"/>
       <path d="M7 11 L12 6 L17 11" fill="none" stroke="var(--accent)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>`;
@@ -1491,7 +1513,25 @@
     document.getElementById('resultSuccess').textContent = successes;
     document.getElementById('resultMiss').textContent = misses;
 
-    window._lastResult = { m, s, cs, successes, misses };
+    const isPerfect = misses === 0;
+
+    let comment;
+    if (isPerfect) {
+      comment = 'パーフェクト！';
+    } else if (misses <= 3) {
+      comment = 'あと一歩！';
+    } else if (misses <= 8) {
+      comment = '着実に上達中';
+    } else {
+      comment = 'まずは基本の配置に慣れよう';
+    }
+    document.getElementById('resultComment').textContent = comment;
+
+    document.getElementById('shareBtn').disabled = !isPerfect;
+    document.getElementById('shareBtnLabel').textContent = isPerfect ? 'Xでシェア' : 'MISS0でシェア';
+    document.getElementById('resultNextHint').classList.toggle('hidden', !(isPerfect && guideEnabled));
+
+    window._lastResult = { m, s, cs, successes, misses, isPerfect, guideWasOn: guideEnabled };
 
     showScreen('result');
   }
@@ -1589,7 +1629,14 @@
     if (document.getElementById('gameScreen').classList.contains('hidden')) return;
     if (e.key === 'Escape') {
       e.preventDefault();
-      if (!sessionEnded) togglePause();
+      if (paused) document.getElementById('pauseTitleBtn').click();
+      else if (!sessionEnded) openPause();
+      return;
+    }
+    if (paused) {
+      const k = e.key.toLowerCase();
+      if (k === 'r') { e.preventDefault(); document.getElementById('pauseRetryBtn').click(); }
+      else if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); document.getElementById('pauseResumeBtn').click(); }
       return;
     }
     if (ALL_KEYS.includes(e.key)) e.preventDefault();
@@ -1686,6 +1733,19 @@
     }
   }, true);
 
+  document.addEventListener('keydown', (e) => {
+    if (introOverlay.classList.contains('show')) return;
+    const titleVisible = !document.getElementById('titleScreen').classList.contains('hidden');
+    const resultVisible = !document.getElementById('resultScreen').classList.contains('hidden');
+    if (titleVisible) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); document.getElementById('startBtn').click(); }
+      else if (e.key.toLowerCase() === 'h') { e.preventDefault(); document.getElementById('introBtn').click(); }
+    } else if (resultVisible) {
+      if (e.key.toLowerCase() === 'r') { e.preventDefault(); document.getElementById('retryBtn').click(); }
+      else if (e.key === 'Escape') { e.preventDefault(); document.getElementById('topBtn').click(); }
+    }
+  });
+
   document.getElementById('startBtn').addEventListener('click', () => {
     guideEnabled = document.getElementById('guideCheckbox').checked;
     detectLayout();
@@ -1721,10 +1781,16 @@
 
   document.getElementById('shareBtn').addEventListener('click', () => {
     const r = window._lastResult;
-    if (!r) return;
-    const text = `「ミノ最適配置」を ${r.m}:${r.s}.${r.cs} でクリア!✅${r.successes} / ❌${r.misses}\n#ミノ最適配置 でミノ配置の練習中`;
+    if (!r || !r.isPerfect) return;
+    const lines = [
+      '「ミノ最適配置」で全ミノを最短手数でパーフェクトクリア🎉',
+      `タイム: ${r.m}:${r.s}.${r.cs}`,
+    ];
+    if (r.guideWasOn) lines.push('（操作手順ガイドON）');
+    lines.push('', 'https://tottori007.github.io/mino_saiteki/', '#ミノ最適配置');
+    const text = lines.join('\n');
     const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`;
-    window.open(url, '_blank', 'noopener');
+    window.open(url, '_blank', 'noopener,noreferrer');
   });
 
   window.addEventListener('resize', () => {
@@ -1741,6 +1807,18 @@
   // =====================================================================
   // Init
   // =====================================================================
+  document.getElementById('legendMoveL').innerHTML = iconMoveSingleLeft();
+  document.getElementById('legendMoveR').innerHTML = iconMoveSingle();
+  document.getElementById('legendMoveLongL').innerHTML = iconMoveLongLeft();
+  document.getElementById('legendMoveLongR').innerHTML = iconMoveLong();
+  document.getElementById('legendRotL').innerHTML = iconRotate(true);
+  document.getElementById('legendRotR').innerHTML = iconRotate(false);
+  document.getElementById('legendDrop').innerHTML = iconHardDrop();
+  document.getElementById('mLeftIcon').innerHTML = iconMoveSingleLeft();
+  document.getElementById('mRightIcon').innerHTML = iconMoveSingle();
+  document.getElementById('mDropIcon').innerHTML = iconHardDrop();
+  document.getElementById('mRotLIcon').innerHTML = iconRotate(true);
+  document.getElementById('mRotRIcon').innerHTML = iconRotate(false);
   detectLayout();
 })();
 </script>
