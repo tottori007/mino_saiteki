@@ -54,6 +54,9 @@
     letter-spacing: 0.04em; line-height: 1.3; margin-bottom: 8px; color: var(--ink);
   }
   .title-logo .accent { color: var(--accent); }
+  @media (max-width: 719px) {
+    .title-logo { font-size: 26px; white-space: nowrap; letter-spacing: 0.01em; }
+  }
   .title-sub {
     font-size: 12px; color: var(--ink-dim); letter-spacing: 0.06em; margin-bottom: 40px;
     font-family: var(--font-display);
@@ -116,12 +119,13 @@
   }
   .hint-bar-left { display: flex; align-items: center; gap: 10px; flex-shrink: 0; z-index: 1; }
   .hint-bar-center {
-    display: flex; align-items: center; gap: 10px;
+    display: flex; align-items: center; justify-content: center; gap: 10px;
     position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
     max-width: 70%; overflow: hidden;
   }
   .hint-bar .brandmini {
-    font-family: var(--font-display); font-weight: 700; font-size: 12px; color: var(--ink); white-space: nowrap;
+    font-family: var(--font-display); font-weight: 700; font-size: 12px; color: var(--ink);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
   }
   .hint-chip {
     background: rgba(77,255,168,0.1); border: 1px solid rgba(77,255,168,0.3);
@@ -136,6 +140,15 @@
   .step-chip svg { display: block; }
 
   .hint-bar-right { margin-left: auto; display: flex; align-items: center; z-index: 1; flex-shrink: 0; }
+  @media (max-width: 719px) {
+    .hint-bar { flex-wrap: wrap; row-gap: 5px; padding-bottom: 6px; }
+    .hint-bar-left { order: 1; }
+    .hint-bar-right { order: 2; }
+    .hint-bar-center {
+      order: 3; position: static; left: auto; top: auto; transform: none;
+      flex: 0 0 100%; width: 100%; max-width: 100%;
+    }
+  }
   .pause-btn {
     display: flex; align-items: center; justify-content: center;
     width: 26px; height: 26px; background: var(--panel); border: 1px solid var(--grid-line);
@@ -1398,7 +1411,7 @@
     const flip = isLeft ? 'style="transform:scaleX(-1)"' : '';
     return `<svg width="20" height="20" viewBox="0 0 24 24" ${flip}>
       <path d="M17.66 6.34 A8 8 0 1 0 17.66 17.66" fill="none" stroke="var(--accent)" stroke-width="2.6" stroke-linecap="round"/>
-      <path d="M13.8 5.1 L17.9 6.1 L16.9 10.2" fill="none" stroke="var(--accent)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" transform="rotate(55 17.66 6.34)"/>
+      <path d="M12.98 4.9 L17.9 6.1 L16.7 11.02" fill="none" stroke="var(--accent)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" transform="rotate(55 17.66 6.34)"/>
     </svg>`;
   }
   function iconHardDrop() {
