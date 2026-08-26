@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>ミノ最適配置</title>
+<title>ミノスピードドロップ</title>
 <style>
   :root{
     --bg: #0a0f0d;
@@ -434,7 +434,7 @@
       <div class="blk" style="background:var(--J)"></div>
       <div class="blk" style="background:var(--L)"></div>
     </div>
-    <div class="title-logo">ミノ<span class="accent">最適配置</span></div>
+    <div class="title-logo">ミノ<span class="accent">スピードドロップ</span></div>
     <div class="title-sub">最短手数配置トレーニング</div>
     <button class="start-btn" id="startBtn">スタート</button>
     <label class="guide-check">
@@ -460,7 +460,7 @@
   <!-- ============ INTRO / GUIDE OVERLAY ============ -->
   <div id="introOverlay" class="intro-overlay">
     <div class="intro-panel">
-      <div class="intro-title">ミノ<span class="accent">最適配置</span>は、ミノを素早く置く練習をするゲーム</div>
+      <div class="intro-title">ミノ<span class="accent">スピードドロップ</span>は、ミノを素早く置く練習をするゲーム</div>
 
       <div class="intro-card">
         <div class="intro-card-head"><span class="intro-term">ミノ</span><span class="intro-desc">4つの四角が繋がったブロック。全7種類</span></div>
@@ -612,7 +612,7 @@
   <div id="gameScreen" class="hidden">
     <div class="hint-bar" id="hintBar">
       <div class="hint-bar-left">
-        <span class="brandmini">ミノ<span style="color:var(--accent)">最適配置</span></span>
+        <span class="brandmini">ミノ<span style="color:var(--accent)">スピードドロップ</span></span>
       </div>
       <div class="hint-bar-center">
         <span class="step-chip" id="stepChip"></span>
@@ -1793,12 +1793,12 @@
     const r = window._lastResult;
     if (!r || !r.isPerfect) return;
     const lines = [
-      '「ミノ最適配置」で全ミノを最短手数でパーフェクトクリア🎉',
+      '『ミノスピードドロップ』で全ミノを最短手数でパーフェクトクリア🎉',
       '',
       `タイム: ${r.m}:${r.s}.${r.cs}`,
     ];
     if (r.guideWasOn) lines.push('（操作手順ガイドON）');
-    lines.push('', 'https://tottori007.github.io/mino_saiteki/', '#ミノ最適配置');
+    lines.push('', 'https://tottori007.github.io/msd/', '#ミノスピードドロップ');
     const text = lines.join('\n');
     const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`;
     window.open(url, '_blank', 'noopener,noreferrer');
