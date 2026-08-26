@@ -1799,6 +1799,7 @@
     ];
     if (r.guideWasOn) lines.push('（操作手順ガイドON）');
     lines.push('', 'https://tottori007.github.io/mino_saiteki/', '#ミノ最適配置');
+    const text = lines.join('\n');
     const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`;
     window.open(url, '_blank', 'noopener,noreferrer');
   });
