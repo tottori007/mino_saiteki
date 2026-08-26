@@ -379,9 +379,10 @@
   .intro-overlay.show { opacity: 1; pointer-events: auto; }
   .intro-panel { max-width: 460px; margin: 0 auto; }
   .intro-title {
-    font-family: var(--font-display); font-size: 17px; font-weight: 700;
-    color: var(--ink); line-height: 1.4; margin-bottom: 12px;
+    font-family: var(--font-display); font-weight: 700; line-height: 1.4; margin-bottom: 12px;
   }
+  .intro-title .name { font-size: 19px; display: block; }
+  .intro-title .desc { font-size: 13px; color: var(--ink-dim); font-weight: 400; display: block; margin-top: 2px; }
   .intro-title .accent { color: var(--accent); }
   .intro-card {
     border: 1px solid var(--grid-line); border-radius: 10px; padding: 9px 12px;
@@ -460,7 +461,7 @@
   <!-- ============ INTRO / GUIDE OVERLAY ============ -->
   <div id="introOverlay" class="intro-overlay">
     <div class="intro-panel">
-      <div class="intro-title">ミノ<span class="accent">スピードドロップ</span>は、ミノを素早く置く練習をするゲーム</div>
+      <div class="intro-title"><span class="name">ミノ<span class="accent">スピードドロップ</span></span><span class="desc">ミノを最短の手数で素早く置く練習をするゲーム</span></div>
 
       <div class="intro-card">
         <div class="intro-card-head"><span class="intro-term">ミノ</span><span class="intro-desc">4つの四角が繋がったブロック。全7種類</span></div>
